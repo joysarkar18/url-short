@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
+      crossorigin="anonymous"
+    />
+    <title>URL Shortener</title>
+    <style>
+      body {
+        background-color: #f8f9fa;
+      }
+      .main-container {
+        max-width: 700px;
+        margin-top: 80px;
+        padding: 40px;
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      table a {
+        word-break: break-all;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      class="container d-flex justify-content-center align-items-center flex-column"
+    >
+      <div class="main-container">
+        <h1 class="text-center mb-4 text-primary">🔗 URL Shortener</h1>
+        <form action="/shortUrls" method="POST" class="d-flex gap-2 mb-4">
+          <input
+            required
+            placeholder="Paste your long URL here..."
+            type="url"
+            name="fullUrl"
+            id="fullUrl"
+            class="form-control"
+          />
+          <button class="btn btn-primary px-4" type="submit">Shrink</button>
+        </form>
+
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle text-center">
+            <thead class="table-light">
+              <tr>
+                <th scope="col">Full URL</th>
+                <th scope="col">Short URL</th>
+                <th scope="col">Clicks</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% shortUrls.forEach(shortUrl => { %>
+              <tr>
+                <td>
+                  <a
+                    href="<%= shortUrl.full %>"
+                    target="_blank"
+                    class="text-decoration-none"
+                  >
+                    <%= shortUrl.full %>
+                  </a>
+                </td>
+                <td>
+                  <a
+                    href="/<%= shortUrl.short %>"
+                    target="_blank"
+                    class="text-decoration-none text-success fw-semibold"
+                  >
+                    <%= shortUrl.short %>
+                  </a>
+                </td>
+                <td>
+                  <span class="badge bg-info text-dark"
+                    ><%= shortUrl.clicks %></span
+                  >
+                </td>
+              </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
